@@ -1,5 +1,5 @@
 import { Asset } from '@/models/asset';
-import { Component, Input, ViewChild, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator, MatTable, MatTableDataSource } from '@angular/material';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
@@ -13,14 +13,13 @@ import { FormControl } from '@angular/forms';
 export class AssetList {
     @Input() assets: Asset[] = [];
     @Input() refresh: boolean;
-
+    @Output() assetSelected = new EventEmitter<number>();
     @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: false }) sort: MatSort;
     @ViewChildren(MatTable) table: MatTable<any>;
 
     displayedColumns = ['assetTagId', 'assetType', 'description', 'dateAdded', 'assignedTo', 'retired', 'dateRetired'];
     dataSource = new MatTableDataSource<Asset>(this.assets);
-
     filteredValues = {
         tagId: '', assetType: '', description: '', dateAdded: '', assignedTo: '', retired: '', dateRetired: ''
     };
@@ -109,5 +108,9 @@ export class AssetList {
         }
 
         return myFilterPredicate;
-      }
+    }
+
+    selectAsset(assetTagId: number) {
+        this.assetSelected.emit(assetTagId);
+    }
 }

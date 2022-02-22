@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Asset } from './models/asset'
 import { AssetService } from './services/asset.service';
 

@@ -1,10 +1,6 @@
 <hello name="{{ name }}"></hello>
 <button (click)="addAssetDemo()">Add Asset</button>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <asset-list [assets]="assets" [refresh]="refresh" *ngIf="assets"></asset-list>
-    </div>
-  </div>
-</div>
+<page-container [assets]="assets" [refresh]="refresh"></page-container>
+
+

@@ -7,7 +7,9 @@ import { mockBackendProvider } from './helpers/mock-backend';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { AssetService } from './services/asset.service';
-import { AssetList } from './assets/asset-list.component';
+import { AssetList} from './assets/asset-list.component';
+import { AssetDetails } from './assets/asset-details.component';
+import { PageContainer } from './PageContainer/page-container.component';
 import { ActiveAssetsPipe } from './assets/asset-active.pipe';
 import { MatTableModule } from '@angular/material/table';
 // import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, MatTableModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, BrowserAnimationsModule],
-  declarations: [AppComponent, HelloComponent, AssetList, ActiveAssetsPipe],
+  declarations: [AppComponent, HelloComponent, PageContainer, AssetList, AssetDetails, ActiveAssetsPipe],
   bootstrap: [AppComponent],
   providers: [AssetService, mockBackendProvider]
 })

@@ -21,11 +21,6 @@
     </mat-form-field>
 
     <mat-form-field>
-        <!-- <mat-label>Retired</mat-label>
-        <mat-select [formControl]="retiredFilter">
-            <mat-option [value]="true">true</mat-option>
-            <mat-option [value]="false">false</mat-option>
-        </mat-select> -->
        <input matInput class="form-field" [formControl]="retiredFilter" placeholder="Retired"> 
     </mat-form-field>
 
@@ -42,7 +37,7 @@
 
         <ng-container matColumnDef="assetTagId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Tag ID</th>
-            <td mat-cell *matCellDef="let asset"> <a href='#'>{{asset.assetTagId}}</a> </td>
+            <td mat-cell *matCellDef="let asset"> <button (click)="selectAsset(asset.assetTagId)">{{asset.assetTagId}}</button> </td>
         </ng-container>
 
 

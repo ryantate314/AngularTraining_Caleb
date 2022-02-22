@@ -1,0 +1,18 @@
+<div>
+    <button (click)="resetSelectedAsset()">View Asset List</button>
+    <div *ngIf="assetNumber == null" class="container">
+        <div class="row">
+          <div class="col">
+            <asset-list (assetSelected)="selectAsset($event)" [assets]="assets" [refresh]="refresh" *ngIf="assets"></asset-list>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="assetNumber != null" class="container">
+        <div class="row">
+          <div class="col">
+            <asset-details></asset-details>
+          </div>
+        </div>
+      </div>
+</div>
