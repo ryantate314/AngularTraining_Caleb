@@ -1,3 +1,37 @@
 <div>
     <h2>Asset Details</h2>
+
+    <div>
+        <form>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="tagId" placeholder="Tag ID">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="assetType" placeholder="Asset Type">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="description" placeholder="Description">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="dateAdded" placeholder="Date Added">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="assignedTo" placeholder="Assigned To">
+        </mat-form-field>
+    
+        <mat-form-field>
+           <input matInput class="form-field" [formControl]="retired" placeholder="Retired"> 
+        </mat-form-field>
+    
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="dateRetired" placeholder="Date Retired">
+        </mat-form-field>
+    
+        <button class="btn btn-secondary">Save</button>
+    </form>
+    </div>
 </div>

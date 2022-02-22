@@ -11,17 +11,16 @@ export class PageContainer {
     @Input() assets: Asset[] = [];
     @Input() refresh: boolean;
     assetNumber: number = null;
-
-    updateAssetNumber(num: number) {
-        console.log("From page container: " + num)
-        //this.assetNumber = num;
-    }
+    @Output() selectedAssetDetails: Asset = null;
 
     selectAsset(selectedAssetNumber: number) {
       this.assetNumber = selectedAssetNumber;
+      this.selectedAssetDetails = this.assets.find( x => x.assetTagId == this.assetNumber);
+      console.log(this.selectedAssetDetails);
     }
 
     resetSelectedAsset(){
         this.assetNumber = null;
+        this.selectedAssetDetails = null;
     }
 }
