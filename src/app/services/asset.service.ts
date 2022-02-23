@@ -32,5 +32,9 @@ export class AssetService {
     return this.http.put<any>(`${environment.api_url}/assets/` + assetTagId + '/retire', null);
   }
 
+  public updateAsset(asset : Asset) : Observable<Asset> { 
+    return this.http.put<Asset>(`${environment.api_url}/assets/` + asset.assetTagId, JSON.stringify(asset));
+  }
+
 }
 

@@ -44,4 +44,10 @@ export class AssetDetails {
             this.getAssetDetails();
         });
     }
+
+    updateAsset() {
+        return this.assetService.updateAsset(this.assetDetails).toPromise().then(() =>{
+            this.getAssetDetails();
+        });
+    }
 }
