@@ -27,9 +27,21 @@ export class AssetDetails {
         this.getAssetDetails();
     }
 
-    public getAssetDetails() {
+    getAssetDetails() {
         return this.assetService.getAssetById(this.assetTagId).toPromise().then(assetDetails => {
             this.assetDetails = assetDetails;
+        });
+    }
+
+    retireAsset() {
+        return this.assetService.retireAsset(this.assetTagId).toPromise().then(() =>{
+            this.getAssetDetails();
+        });
+    }
+
+    unretireAsset() {
+        return this.assetService.unretireAsset(this.assetTagId).toPromise().then(() =>{
+            this.getAssetDetails();
         });
     }
 }

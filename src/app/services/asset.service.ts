@@ -20,10 +20,16 @@ export class AssetService {
     return this.http.get<Asset[]>(`${environment.api_url}/assets`);
   }
 
-  public getAssetById(assetTagId : string) : Observable<Asset> {
-    let params = new HttpParams().set("assetTagId", "3"); //Create new HttpParams
- 
+  public getAssetById(assetTagId : string) : Observable<Asset> { 
     return this.http.get<Asset>(`${environment.api_url}/assets/` + assetTagId);
+  }
+
+  public retireAsset(assetTagId : string) : Observable<Asset> { 
+    return this.http.delete<any>(`${environment.api_url}/assets/` + assetTagId + '/retire');
+  }
+
+  public unretireAsset(assetTagId : string) : Observable<Asset> { 
+    return this.http.put<any>(`${environment.api_url}/assets/` + assetTagId + '/retire', null);
   }
 
 }
