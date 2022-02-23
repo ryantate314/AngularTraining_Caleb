@@ -4,7 +4,7 @@ import { AssetList } from './assets/asset-list.component';
 import {AssetDetails} from './assets/asset-details.component';
 
 const routes: Routes = [
-  { path: 'assets', component: AssetList},
+  { path: '', component: AssetList},
   { path: 'details', component: AssetDetails}
 ];
 
