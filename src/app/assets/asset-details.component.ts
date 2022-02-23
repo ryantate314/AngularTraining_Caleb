@@ -1,6 +1,7 @@
 import { Asset } from '@/models/asset';
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AssetService } from '@/services/asset.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,18 +11,25 @@ import { FormControl } from '@angular/forms';
 })
 
 export class AssetDetails {
-    @Input() assetDetails: Asset;
-    tagId = new FormControl();
-    assetType = new FormControl();
-    description = new FormControl();
-    dateAdded = new FormControl();
-    assignedTo = new FormControl();
-    retired = new FormControl();
-    dateRetired = new FormControl();
 
+    assetTagId: string;
+    assetDetails: Asset;
 
-    ngAfterViewInit(){
-        console.log(this.assetDetails);
+    constructor(private route: ActivatedRoute, private assetService: AssetService) {
+
     }
 
+    ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            this.assetTagId = params.assetTagId;
+        });
+
+        this.getAssetDetails();
+    }
+
+    public getAssetDetails() {
+        return this.assetService.getAssetById(this.assetTagId).toPromise().then(assetDetails => {
+            this.assetDetails = assetDetails;
+        });
+    }
 }

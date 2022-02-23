@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { environment } from '../../environments/environment'
 import { Asset } from '../models/asset'
 
@@ -18,6 +18,12 @@ export class AssetService {
 
   public getAssets() : Observable<Asset[]> {
     return this.http.get<Asset[]>(`${environment.api_url}/assets`);
+  }
+
+  public getAssetById(assetTagId : string) : Observable<Asset> {
+    let params = new HttpParams().set("assetTagId", "3"); //Create new HttpParams
+ 
+    return this.http.get<Asset>(`${environment.api_url}/assets/` + assetTagId);
   }
 
 }

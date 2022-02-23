@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, Output, ViewChild, ViewChildren } from 
 import { MatPaginator, MatTable, MatTableDataSource } from '@angular/material';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
+import { AssetService } from './../services/asset.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'asset-list',
@@ -11,9 +13,13 @@ import { FormControl } from '@angular/forms';
 })
 
 export class AssetList {
-    @Input() assets: Asset[] = [];
-    @Input() refresh: boolean;
-    @Output() assetSelected = new EventEmitter<number>();
+    assets: Asset[] = [];
+
+
+    constructor(private assetService: AssetService) {
+
+    }
+
     @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: false }) sort: MatSort;
     @ViewChildren(MatTable) table: MatTable<any>;
@@ -23,7 +29,7 @@ export class AssetList {
     filteredValues = {
         tagId: '', assetType: '', description: '', dateAdded: '', assignedTo: '', retired: '', dateRetired: ''
     };
-    
+
     tagIdFilter = new FormControl();
     assetTypeFilter = new FormControl();
     descriptionFilter = new FormControl();
@@ -33,14 +39,14 @@ export class AssetList {
     dateRetiredFilter = new FormControl();
 
     ngOnInit() {
+        this.getAssets().then(() => {
+            this.dataSource.data = [...this.assets];
+        });
         this.initFilters();
         this.dataSource.filterPredicate = this.customFilterPredicate();
     }
 
-    ngOnChanges() {
-        this.dataSource.data = [...this.assets];
-    }
-   
+
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -96,21 +102,37 @@ export class AssetList {
     customFilterPredicate() {
         const myFilterPredicate = (data: Asset, filter: string): boolean => {
 
-          let searchString = JSON.parse(filter);
+            let searchString = JSON.parse(filter);
 
-          return (data.assetTagId == null ? "" : data.assetTagId).toString().trim().indexOf(searchString.tagId) !== -1 &&
-          (data.assetTagId == null ? "" : data.assetTagId).toString().trim().toLowerCase().indexOf(searchString.assetType.toLowerCase()) !== -1 &&
-          (data.description == null ? "" : data.description).toString().trim().toLowerCase().indexOf(searchString.description.toLowerCase()) !== -1 &&
-          (data.assignedTo == null ? "" : data.assignedTo).toString().trim().toLowerCase().indexOf(searchString.assignedTo.toLowerCase()) !== -1 &&
-          (data.dateAdded == null ? "" : data.dateAdded).toString().trim().toLowerCase().indexOf(searchString.dateAdded.toLowerCase()) !== -1 &&
-          (data.retired == null ? "" : data.retired).toString().indexOf(searchString.retired) !== -1 &&
-          (data.dateRetired == null ? "" : data.dateRetired).toString().trim().toLowerCase().indexOf(searchString.dateRetired.toLowerCase()) !== -1;
+            return (data.assetTagId == null ? "" : data.assetTagId).toString().trim().indexOf(searchString.tagId) !== -1 &&
+                (data.assetTagId == null ? "" : data.assetTagId).toString().trim().toLowerCase().indexOf(searchString.assetType.toLowerCase()) !== -1 &&
+                (data.description == null ? "" : data.description).toString().trim().toLowerCase().indexOf(searchString.description.toLowerCase()) !== -1 &&
+                (data.assignedTo == null ? "" : data.assignedTo).toString().trim().toLowerCase().indexOf(searchString.assignedTo.toLowerCase()) !== -1 &&
+                (data.dateAdded == null ? "" : data.dateAdded).toString().trim().toLowerCase().indexOf(searchString.dateAdded.toLowerCase()) !== -1 &&
+                (data.retired == null ? "" : data.retired).toString().indexOf(searchString.retired) !== -1 &&
+                (data.dateRetired == null ? "" : data.dateRetired).toString().trim().toLowerCase().indexOf(searchString.dateRetired.toLowerCase()) !== -1;
         }
 
         return myFilterPredicate;
     }
 
-    selectAsset(assetTagId: number) {
-        this.assetSelected.emit(assetTagId);
+    // demo function that creates a new asset
+    public addAssetDemo() {
+        let newAsset = new Asset();
+        newAsset.assetType = 'Computer';
+        newAsset.description = 'A test of creating a new asset'
+        newAsset.assignedTo = '5272';
+
+        this.assetService.createAsset(newAsset)
+            .subscribe(asset => {
+                 this.dataSource.data = [...this.assets];
+            },
+                error => { });
+    }
+
+    public getAssets() {
+        return this.assetService.getAssets().toPromise().then(assetList => {
+            this.assets = assetList;
+        });
     }
 }

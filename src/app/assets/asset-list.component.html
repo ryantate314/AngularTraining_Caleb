@@ -1,35 +1,36 @@
+<button (click)="addAssetDemo()">Add Asset</button>
 <div>
     <form>
-    <mat-form-field>
-        <input matInput class="form-field" [formControl]="tagIdFilter" placeholder="Tag ID">
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="tagIdFilter" placeholder="Tag ID">
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput class="form-field" [formControl]="assetTypeFilter" placeholder="Asset Type">
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="assetTypeFilter" placeholder="Asset Type">
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput class="form-field" [formControl]="descriptionFilter" placeholder="Description">
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="descriptionFilter" placeholder="Description">
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput class="form-field" [formControl]="dateAddedFilter" placeholder="Date Added">
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="dateAddedFilter" placeholder="Date Added">
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput class="form-field" [formControl]="assignedToFilter" placeholder="Assigned To">
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="assignedToFilter" placeholder="Assigned To">
+        </mat-form-field>
 
-    <mat-form-field>
-       <input matInput class="form-field" [formControl]="retiredFilter" placeholder="Retired"> 
-    </mat-form-field>
+        <mat-form-field>
+        <input matInput class="form-field" [formControl]="retiredFilter" placeholder="Retired"> 
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput class="form-field" [formControl]="dateRetiredFilter" placeholder="Date Retired">
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput class="form-field" [formControl]="dateRetiredFilter" placeholder="Date Retired">
+        </mat-form-field>
 
-    <button (click)="resetFilters()" class="btn btn-secondary">Reset</button>
-</form>
+        <button (click)="resetFilters()" class="btn btn-secondary">Reset</button>
+    </form>
 </div>
 
 <div>
@@ -37,7 +38,10 @@
 
         <ng-container matColumnDef="assetTagId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Tag ID</th>
-            <td mat-cell *matCellDef="let asset"> <button (click)="selectAsset(asset.assetTagId)">{{asset.assetTagId}}</button> </td>
+            <td mat-cell *matCellDef="let asset"> 
+                <a [routerLink]="['/details']" [queryParams]="{assetTagId: asset.assetTagId}">{{asset.assetTagId}}</a>
+            </td>
+              <!-- </a><a href="/details/{{asset.assetTagId}}" >{{asset.assetTagId}}</button> </td> -->
         </ng-container>
 
 
