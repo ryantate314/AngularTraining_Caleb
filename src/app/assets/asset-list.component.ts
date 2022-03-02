@@ -1,5 +1,5 @@
 import { Asset } from '@/models/asset';
-import { Component, EventEmitter, Input, Output, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator, MatTable, MatTableDataSource } from '@angular/material';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
@@ -15,8 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AssetList {
     assets: Asset[] = [];
 
-
-    constructor(private assetService: AssetService) {
+    constructor(private route: ActivatedRoute, private assetService: AssetService) {
 
     }
 
@@ -42,7 +41,15 @@ export class AssetList {
         this.getAssets().then(() => {
             this.dataSource.data = [...this.assets];
         });
-        this.initFilters();
+
+        this.initFilterListeners();
+
+        this.route.queryParams.subscribe(params => {
+            if (params.employeeId != null) {
+                this.assignedToFilter.setValue(params.employeeId);
+            }
+        });
+
         this.dataSource.filterPredicate = this.customFilterPredicate();
     }
 
@@ -52,7 +59,7 @@ export class AssetList {
         this.dataSource.sort = this.sort;
     }
 
-    initFilters() {
+    initFilterListeners() {
         this.tagIdFilter.valueChanges.subscribe((filterValue) => {
             this.filteredValues['tagId'] = filterValue;
             this.dataSource.filter = JSON.stringify(this.filteredValues);
@@ -125,7 +132,7 @@ export class AssetList {
 
         this.assetService.createAsset(newAsset)
             .subscribe(asset => {
-                 this.dataSource.data = [...this.assets];
+                this.dataSource.data = [...this.assets];
             },
                 error => { });
     }

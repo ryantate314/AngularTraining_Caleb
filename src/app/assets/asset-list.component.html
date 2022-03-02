@@ -65,7 +65,7 @@
 
         <ng-container matColumnDef="assignedTo">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned To</th>
-            <td mat-cell *matCellDef="let asset"> <a href='#'>{{asset.assignedTo}}</a> </td>
+            <td mat-cell *matCellDef="let asset"> <a [routerLink]="['/']" [queryParams]="{employeeId: asset.assignedTo}">{{asset.assignedTo}}</a> </td>
         </ng-container>
 
 
