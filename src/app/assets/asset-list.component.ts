@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { AssetService } from './../services/asset.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogService } from '@/shared/log.service';
 
 @Component({
     selector: 'asset-list',
@@ -28,14 +29,15 @@ export class AssetList {
     assignedToFilter = new FormControl();
     retiredFilter = new FormControl();
     dateRetiredFilter = new FormControl();
-    
+
     @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: false }) sort: MatSort;
     @ViewChildren(MatTable) table: MatTable<any>;
 
-    constructor(private route: ActivatedRoute, private router: Router, private assetService: AssetService) {
-
-    }
+    constructor(private route: ActivatedRoute, 
+        private logger: LogService, 
+        private router: Router, 
+        private assetService: AssetService) {}
 
     ngOnInit() {
         this.getAssets().then(() => {
@@ -133,21 +135,8 @@ export class AssetList {
         return myFilterPredicate;
     }
 
-    // // demo function that creates a new asset
-    // public addAssetDemo() {
-    //     let newAsset = new Asset();
-    //     newAsset.assetType = 'Computer';
-    //     newAsset.description = 'A test of creating a new asset'
-    //     newAsset.assignedTo = '5272';
-
-    //     this.assetService.createAsset(newAsset)
-    //         .subscribe(asset => {
-    //             this.dataSource.data = [...this.assets];
-    //         },
-    //             error => { });
-    // }
-
     public getAssets() {
+        this.logger.log("Fetching all asset data")
         return this.assetService.getAssets().toPromise().then(assetList => {
             this.assets = assetList;
         });
