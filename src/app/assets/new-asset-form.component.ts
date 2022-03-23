@@ -1,5 +1,5 @@
 import { Asset } from '@/models/asset';
-import { AssetTypes } from '@/models/assetTypes';
+import { AssetTypes } from '../constants/assetTypes';
 import { Component, ViewChild } from '@angular/core';
 import { MatOption, MatSelect } from '@angular/material';
 import { AssetService } from '../services/asset.service';
