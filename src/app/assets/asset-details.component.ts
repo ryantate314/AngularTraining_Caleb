@@ -3,7 +3,6 @@ import { AssetService } from '@/services/asset.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
     selector: 'asset-details',
     styleUrls: ['asset-details.component.css'],

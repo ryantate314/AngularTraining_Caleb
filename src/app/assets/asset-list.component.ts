@@ -4,7 +4,7 @@ import { MatPaginator, MatTable, MatTableDataSource } from '@angular/material';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { AssetService } from './../services/asset.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'asset-list',
@@ -14,15 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class AssetList {
     assets: Asset[] = [];
-
-    constructor(private route: ActivatedRoute, private assetService: AssetService) {
-
-    }
-
-    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: false }) sort: MatSort;
-    @ViewChildren(MatTable) table: MatTable<any>;
-
+    assignedToQueryParam: string = null;
     displayedColumns = ['assetTagId', 'assetType', 'description', 'dateAdded', 'assignedTo', 'retired', 'dateRetired'];
     dataSource = new MatTableDataSource<Asset>(this.assets);
     filteredValues = {
@@ -36,6 +28,14 @@ export class AssetList {
     assignedToFilter = new FormControl();
     retiredFilter = new FormControl();
     dateRetiredFilter = new FormControl();
+    
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: false }) sort: MatSort;
+    @ViewChildren(MatTable) table: MatTable<any>;
+
+    constructor(private route: ActivatedRoute, private router: Router, private assetService: AssetService) {
+
+    }
 
     ngOnInit() {
         this.getAssets().then(() => {
@@ -46,6 +46,7 @@ export class AssetList {
 
         this.route.queryParams.subscribe(params => {
             if (params.employeeId != null) {
+                this.assignedToQueryParam = params.employeeId;
                 this.assignedToFilter.setValue(params.employeeId);
             }
         });
@@ -83,6 +84,15 @@ export class AssetList {
         this.assignedToFilter.valueChanges.subscribe((filterValue) => {
             this.filteredValues['assignedTo'] = filterValue;
             this.dataSource.filter = JSON.stringify(this.filteredValues);
+
+            if (this.assignedToQueryParam != null) {
+                this.router.navigate([], {
+                    queryParams: {
+                        'employeeId': null
+                    },
+                    queryParamsHandling: 'merge'
+                });
+            }
         });
 
         this.retiredFilter.valueChanges.subscribe((filterValue) => {
@@ -112,7 +122,7 @@ export class AssetList {
             let searchString = JSON.parse(filter);
 
             return (data.assetTagId == null ? "" : data.assetTagId).toString().trim().indexOf(searchString.tagId) !== -1 &&
-                (data.assetTagId == null ? "" : data.assetTagId).toString().trim().toLowerCase().indexOf(searchString.assetType.toLowerCase()) !== -1 &&
+                (data.assetTagId == null ? "" : data.assetType).toString().trim().toLowerCase().indexOf(searchString.assetType.toLowerCase()) !== -1 &&
                 (data.description == null ? "" : data.description).toString().trim().toLowerCase().indexOf(searchString.description.toLowerCase()) !== -1 &&
                 (data.assignedTo == null ? "" : data.assignedTo).toString().trim().toLowerCase().indexOf(searchString.assignedTo.toLowerCase()) !== -1 &&
                 (data.dateAdded == null ? "" : data.dateAdded).toString().trim().toLowerCase().indexOf(searchString.dateAdded.toLowerCase()) !== -1 &&
@@ -123,19 +133,19 @@ export class AssetList {
         return myFilterPredicate;
     }
 
-    // demo function that creates a new asset
-    public addAssetDemo() {
-        let newAsset = new Asset();
-        newAsset.assetType = 'Computer';
-        newAsset.description = 'A test of creating a new asset'
-        newAsset.assignedTo = '5272';
+    // // demo function that creates a new asset
+    // public addAssetDemo() {
+    //     let newAsset = new Asset();
+    //     newAsset.assetType = 'Computer';
+    //     newAsset.description = 'A test of creating a new asset'
+    //     newAsset.assignedTo = '5272';
 
-        this.assetService.createAsset(newAsset)
-            .subscribe(asset => {
-                this.dataSource.data = [...this.assets];
-            },
-                error => { });
-    }
+    //     this.assetService.createAsset(newAsset)
+    //         .subscribe(asset => {
+    //             this.dataSource.data = [...this.assets];
+    //         },
+    //             error => { });
+    // }
 
     public getAssets() {
         return this.assetService.getAssets().toPromise().then(assetList => {

@@ -17,10 +17,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module'
+import { AssetForm } from './assets/asset-form.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, BrowserAnimationsModule],
-  declarations: [AppComponent, HelloComponent, AssetList, AssetDetails, ActiveAssetsPipe],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatProgressSpinnerModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, BrowserAnimationsModule],
+  declarations: [AppComponent, HelloComponent, AssetList, AssetDetails, AssetForm, ActiveAssetsPipe],
   bootstrap: [AppComponent],
   providers: [AssetService, mockBackendProvider]
 })

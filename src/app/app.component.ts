@@ -10,24 +10,9 @@ import { AssetService } from './services/asset.service';
 
 export class AppComponent  {
   name: string;
-  @Output() assets: Asset[];
-  @Output() refresh: boolean;
-  @Output() assetsChanged = new EventEmitter<Asset>();
   
   constructor(private assetService: AssetService){
     this.name = 'CGI Member';
-  }
-
-  ngOnInit(){
-    this.getAssets();
-  }
-
-
-
-  //retrieves the list of assets from mock backend 
-  public getAssets(){
-    this.assetService.getAssets().subscribe(data => this.assets = data);
-    this.refresh = true;
   }
 
 }

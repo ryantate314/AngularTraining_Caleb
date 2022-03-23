@@ -1,11 +1,19 @@
 <div>
-    <a [routerLink]="['/']">Back to Asset List</a>
+    <a [routerLink]="['/']"><button class="btn btn-outline-dark" style="width: fit-content;">« Back to Asset
+            List</button></a>
 
-    <div *ngIf="assetDetails?.assetTagId != null">
-        <form>
-            <div class="container">
+    <div class="container">
+        <div *ngIf="assetDetails?.assetTagId == null">
+            <h2>Loading asset...</h2>
+            <mat-spinner class="center"></mat-spinner>
+        </div>
+
+        <div *ngIf="assetDetails?.assetTagId != null">
+            <form>
+
                 <h2>Asset Details</h2>
-                <p>Assigned to: <a [routerLink]="['/']" [queryParams]="{employeeId: assetDetails.assignedTo}">{{assetDetails.assignedTo}}</a></p>
+                <p>Assigned to: <a [routerLink]="['/']"
+                        [queryParams]="{employeeId: assetDetails.assignedTo}">{{assetDetails.assignedTo}}</a></p>
                 <div class="row">
                     <div class="col">
                         <mat-form-field appearance="fill">
@@ -65,15 +73,16 @@
                 </div>
 
                 <div class="row justify-content-around">
-                        <button *ngIf="!assetDetails.retired" class="btn btn-secondary" (click)="retireAsset()"
-                            title="Note: Clicking this button will retire the asset, and save any changes made">Retire
-                            Asset and Save</button>
-                        <button *ngIf="assetDetails.retired" class="btn btn-secondary" (click)="unretireAsset()"
-                            title="Note: Clicking this button will un-retire the asset, and save any changes made">Un-Retire
-                            Asset and Save</button>
-                        <button class="btn btn-primary" (click)="updateAsset()">Save Changes</button>
+                    <button *ngIf="!assetDetails.retired" class="btn btn-secondary" (click)="retireAsset()"
+                        title="Note: Clicking this button will retire the asset, and save any changes made">Retire
+                        Asset and Save</button>
+                    <button *ngIf="assetDetails.retired" class="btn btn-secondary" (click)="unretireAsset()"
+                        title="Note: Clicking this button will un-retire the asset, and save any changes made">Un-Retire
+                        Asset and Save</button>
+                    <button class="btn btn-primary" (click)="updateAsset()">Save Changes</button>
                 </div>
-            </div>
-        </form>
+
+            </form>
+        </div>
     </div>
 </div>
