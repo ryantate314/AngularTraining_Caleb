@@ -2,18 +2,18 @@ import { Asset } from '@/models/asset';
 import { AssetTypes } from '@/models/assetTypes';
 import { Component, ViewChild } from '@angular/core';
 import { MatOption, MatSelect } from '@angular/material';
-import { AssetService } from './../services/asset.service';
+import { AssetService } from '../services/asset.service';
 import { Router } from '@angular/router';
 import { LogService } from '@/shared/log.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'asset-form',
-    styleUrls: ['asset-form.component.css'],
-    templateUrl: 'asset-form.component.html',
+    selector: 'new-asset-form',
+    styleUrls: ['new-asset-form.component.css'],
+    templateUrl: 'new-asset-form.component.html',
 })
 
-export class AssetForm {
+export class NewAssetForm {
     asset: Asset = new Asset();
     assetTypes = AssetTypes;
     @ViewChild(MatSelect, { static: false }) assetType: MatSelect;
