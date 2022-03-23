@@ -1,87 +1,89 @@
 <div class="container">
-<a [routerLink]="['/new-asset']"><button class="btn btn-primary">Add Asset</button></a>
-<div>
-    <form>
-        <mat-form-field>
-            <input matInput class="form-field" [formControl]="tagIdFilter" placeholder="Tag ID">
-        </mat-form-field>
+    <a [routerLink]="['/new-asset']"><button class="btn btn-primary">Add Asset</button></a>
+    <div>
+        <form>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="tagIdFilter" placeholder="Tag ID">
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput class="form-field" [formControl]="assetTypeFilter" placeholder="Asset Type">
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="assetTypeFilter" placeholder="Asset Type">
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput class="form-field" [formControl]="descriptionFilter" placeholder="Description">
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="descriptionFilter" placeholder="Description">
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput class="form-field" [formControl]="dateAddedFilter" placeholder="Date Added">
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="dateAddedFilter" placeholder="Date Added">
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput class="form-field" [formControl]="assignedToFilter" placeholder="Assigned To">
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="assignedToFilter" placeholder="Assigned To">
+            </mat-form-field>
 
-        <mat-form-field>
-        <input matInput class="form-field" [formControl]="retiredFilter" placeholder="Retired"> 
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="retiredFilter" placeholder="Retired">
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput class="form-field" [formControl]="dateRetiredFilter" placeholder="Date Retired">
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput class="form-field" [formControl]="dateRetiredFilter" placeholder="Date Retired">
+            </mat-form-field>
 
-        <button (click)="resetFilters()" class="btn btn-secondary">Reset Filters</button>
-    </form>
-</div>
+            <button (click)="resetFilters()" class="btn btn-secondary">Reset Filters</button>
+        </form>
+    </div>
 
-<div>
-    <table mat-table [dataSource]="dataSource" matSort class="table">
+    <div>
+        <table mat-table [dataSource]="dataSource" matSort class="table">
 
-        <ng-container matColumnDef="assetTagId">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tag ID</th>
-            <td mat-cell *matCellDef="let asset"> 
-                <a [routerLink]="['/details']" [queryParams]="{assetTagId: asset.assetTagId}">{{asset.assetTagId}}</a>
-            </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="assetType">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Type</th>
-            <td mat-cell *matCellDef="let asset"> {{asset.assetType}} </td>
-        </ng-container>
+            <ng-container matColumnDef="assetTagId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tag ID</th>
+                <td mat-cell *matCellDef="let asset">
+                    <a [routerLink]="['/details']"
+                        [queryParams]="{assetTagId: asset.assetTagId}">{{asset.assetTagId}}</a>
+                </td>
+            </ng-container>
 
 
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
-            <td mat-cell *matCellDef="let asset"> {{asset.description}} </td>
-        </ng-container>
+            <ng-container matColumnDef="assetType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Type</th>
+                <td mat-cell *matCellDef="let asset"> {{asset.assetType}} </td>
+            </ng-container>
 
 
-        <ng-container matColumnDef="dateAdded">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added</th>
-            <td mat-cell *matCellDef="let asset"> {{asset.dateAdded.toLocaleString()}} </td>
-        </ng-container>
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+                <td mat-cell *matCellDef="let asset"> {{asset.description}} </td>
+            </ng-container>
 
 
-        <ng-container matColumnDef="assignedTo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned To</th>
-            <td mat-cell *matCellDef="let asset"> <a [routerLink]="['/']" [queryParams]="{employeeId: asset.assignedTo}">{{asset.assignedTo}}</a> </td>
-        </ng-container>
+            <ng-container matColumnDef="dateAdded">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added</th>
+                <td mat-cell *matCellDef="let asset"> {{asset.dateAdded.toLocaleString()}} </td>
+            </ng-container>
 
 
-        <ng-container matColumnDef="retired">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Retired</th>
-            <td mat-cell *matCellDef="let asset"> {{asset.retired}} </td>
-        </ng-container>
+            <ng-container matColumnDef="assignedTo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned To</th>
+                <td mat-cell *matCellDef="let asset"> <a [routerLink]="['/']"
+                        [queryParams]="{employeeId: asset.assignedTo}">{{asset.assignedTo}}</a> </td>
+            </ng-container>
 
-        <ng-container matColumnDef="dateRetired">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Retired</th>
-            <td mat-cell *matCellDef="let asset"> {{asset.dateRetired}} </td>
-        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-dark"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div>
+            <ng-container matColumnDef="retired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Retired</th>
+                <td mat-cell *matCellDef="let asset"> {{asset.retired}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateRetired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Retired</th>
+                <td mat-cell *matCellDef="let asset"> {{asset.dateRetired}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-dark"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
 </div>

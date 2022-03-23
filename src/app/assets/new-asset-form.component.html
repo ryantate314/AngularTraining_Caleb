@@ -1,5 +1,7 @@
 <div>
-    <a [routerLink]="['/']"><button class="btn btn-outline-dark" style="width: fit-content;"> « Back to Asset List</button></a>
+    <a [routerLink]="['/']">
+        <button class="btn btn-outline-dark" style="width: fit-content;"> « Back to Asset List</button>
+    </a>
 
     <form>
         <div class="container">
@@ -37,12 +39,6 @@
             </div>
 
             <div class="row justify-content-around">
-                <!-- <button *ngIf="!asset.retired" class="btn btn-secondary" (click)="retireAsset()"
-                            title="Note: Clicking this button will retire the asset, and save any changes made">Retire
-                            Asset and Save</button>
-                        <button *ngIf="asset.retired" class="btn btn-secondary" (click)="unretireAsset()"
-                            title="Note: Clicking this button will un-retire the asset, and save any changes made">Un-Retire
-                            Asset and Save</button> -->
                 <button class="btn btn-secondary" (click)="resetForm()">Reset Form</button>
                 <button class="btn btn-primary" (click)="createAsset()">Save Asset</button>
             </div>

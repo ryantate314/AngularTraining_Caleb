@@ -40,12 +40,15 @@ export class AssetList {
         private assetService: AssetService) {}
 
     ngOnInit() {
+        //Update assets table datasource upon asset data changing
         this.getAssets().then(() => {
             this.dataSource.data = [...this.assets];
         });
 
         this.initFilterListeners();
 
+        //Get employee ID from query parameters if it exists. 
+        //This is used to see all assets assigned to an employee.
         this.route.queryParams.subscribe(params => {
             if (params.employeeId != null) {
                 this.assignedToQueryParam = params.employeeId;
@@ -62,6 +65,7 @@ export class AssetList {
         this.dataSource.sort = this.sort;
     }
 
+    //Filter field listeners
     initFilterListeners() {
         this.tagIdFilter.valueChanges.subscribe((filterValue) => {
             this.filteredValues['tagId'] = filterValue;
@@ -108,6 +112,7 @@ export class AssetList {
         });
     }
 
+    //Clear all filter field values
     resetFilters() {
         this.tagIdFilter.setValue("");
         this.assetTypeFilter.setValue("");
@@ -118,6 +123,7 @@ export class AssetList {
         this.dateRetiredFilter.setValue("");
     }
 
+    //Build filter predicate based on filter input field values
     customFilterPredicate() {
         const myFilterPredicate = (data: Asset, filter: string): boolean => {
 
@@ -135,6 +141,7 @@ export class AssetList {
         return myFilterPredicate;
     }
 
+    //Get all assets
     public getAssets() {
         this.logger.log("Fetching all asset data")
         return this.assetService.getAssets().toPromise().then(assetList => {

@@ -18,34 +18,39 @@ export class NewAssetForm {
     assetTypes = AssetTypes;
     @ViewChild(MatSelect, { static: false }) assetType: MatSelect;
 
-    constructor(private assetService: AssetService, 
-        private logger: LogService, 
+    constructor(private assetService: AssetService,
+        private logger: LogService,
         private router: Router,
-        private snackBar: MatSnackBar) {}
+        private snackBar: MatSnackBar) { }
 
-    createAsset(){
-        this.logger.log("Creating new asset with Asset Type: " + this.asset.assetType + 
-        ", Description: " + this.asset.description + 
-        ", and Assigned To: " + this.asset.assignedTo);
+    //Create new asset
+    createAsset() {
+        this.logger.log("Creating new asset with Asset Type: " + this.asset.assetType +
+            ", Description: " + this.asset.description +
+            ", and Assigned To: " + this.asset.assignedTo);
 
         this.assetService.createAsset(this.asset)
-            .subscribe(asset => {
+            .subscribe(() => {
 
                 const snackBarRef = this.snackBar.open('Asset successfully created.', 'Dismiss', {
                     duration: 5000
-                  });
+                });
 
-                snackBarRef.afterDismissed().subscribe(() =>{
+                snackBarRef.afterDismissed().subscribe(() => {
                     this.router.navigate(['/']);
                 });
 
             },
-                error => { 
-                    this.logger.log("Error creating new asset, please try again.");
+                error => {
+                    this.logger.log("Error creating new asset: " + error);
+                    const snackBarRef = this.snackBar.open('Error creating new asset, please try again.', 'Dismiss', {
+                        duration: 5000
+                    });
                 });
     }
 
-    resetForm(){
+    //Reset all form fields
+    resetForm() {
         this.asset = new Asset();
         this.assetType.options.forEach((data: MatOption) => data.deselect())
     }

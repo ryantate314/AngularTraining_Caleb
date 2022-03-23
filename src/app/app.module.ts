@@ -18,9 +18,10 @@ import { AppRoutingModule } from './app-routing.module'
 import { NewAssetForm } from './assets/new-asset-form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LogService } from './shared/log.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, MatSnackBarModule, BrowserAnimationsModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, MatSnackBarModule, MatProgressSpinnerModule, BrowserAnimationsModule],
   declarations: [AppComponent, HelloComponent, AssetList, AssetDetails, NewAssetForm],
   bootstrap: [AppComponent],
   providers: [AssetService, LogService, mockBackendProvider]
