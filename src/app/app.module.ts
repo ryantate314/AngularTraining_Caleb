@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
-// used to create fake backend
 import { mockBackendProvider } from './helpers/mock-backend';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
@@ -19,11 +18,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module'
 import { AssetForm } from './assets/asset-form.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LogService } from './shared/log.service';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatProgressSpinnerModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, BrowserAnimationsModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatProgressSpinnerModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, MatSnackBarModule, BrowserAnimationsModule],
   declarations: [AppComponent, HelloComponent, AssetList, AssetDetails, AssetForm, ActiveAssetsPipe],
   bootstrap: [AppComponent],
-  providers: [AssetService, mockBackendProvider]
+  providers: [AssetService, LogService, mockBackendProvider]
 })
+
 export class AppModule { }
