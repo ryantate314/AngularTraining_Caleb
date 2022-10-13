@@ -25,6 +25,9 @@ export class NewAssetForm {
 
     //Create new asset
     createAsset() {
+
+        // TODO: Need to make sure form is valid before performing the save.
+
         this.logger.log("Creating new asset with Asset Type: " + this.asset.assetType +
             ", Description: " + this.asset.description +
             ", and Assigned To: " + this.asset.assignedTo);
@@ -36,6 +39,8 @@ export class NewAssetForm {
                     duration: 5000
                 });
 
+                // TODO: These aren't actual page navigations, so the snackbar can show up even on the asset list page. Consider
+                // redirecting immediately instead of waiting for the 5 second delay.
                 snackBarRef.afterDismissed().subscribe(() => {
                     this.router.navigate(['/']);
                 });

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+// TODO: Remove unused code
 @Component({
   selector: 'hello',
   template: `<h1>Hello {{name}}!</h1>`,

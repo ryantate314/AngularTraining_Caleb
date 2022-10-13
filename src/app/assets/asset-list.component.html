@@ -60,6 +60,7 @@
 
             <ng-container matColumnDef="dateAdded">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added</th>
+                <!--- TODO: Consider using the date pipe instead to format the date -->
                 <td mat-cell *matCellDef="let asset"> {{asset.dateAdded.toLocaleString()}} </td>
             </ng-container>
 
@@ -73,11 +74,13 @@
 
             <ng-container matColumnDef="retired">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Retired</th>
+                <!-- TODO: Format the retired value to a more human-readable format, e.g. Yes, No. Or even capitalize to True/False to look less mechanical -->
                 <td mat-cell *matCellDef="let asset"> {{asset.retired}} </td>
             </ng-container>
 
             <ng-container matColumnDef="dateRetired">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Retired</th>
+                <!--- TODO: Use the date pipe to format this into a more concise format -->
                 <td mat-cell *matCellDef="let asset"> {{asset.dateRetired}} </td>
             </ng-container>
 

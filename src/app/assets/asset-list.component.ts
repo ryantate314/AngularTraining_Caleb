@@ -144,6 +144,8 @@ export class AssetList {
     //Get all assets
     public getAssets() {
         this.logger.log("Fetching all asset data")
+        // TODO: Use .subscribe() to listen for observables to return a value. Angular embraces
+        // RXJS observables instead of traditional JavaScript promises.
         return this.assetService.getAssets().toPromise().then(assetList => {
             this.assets = assetList;
         });

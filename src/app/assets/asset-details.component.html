@@ -19,6 +19,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Tag ID</mat-label>
+                            <!-- TODO: Consider using one-way bindings since these fields are read-only -->
                             <input matInput name="TagID" class="form-field" [(ngModel)]="assetDetails.assetTagId"
                                 [readonly]="true" placeholder="Tag ID">
                         </mat-form-field>
@@ -33,6 +34,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Date Added</mat-label>
+                            <!-- TODO: Consider using the date pipe to format the date into a more human-friendy format (mm/dd/yyyy hh:mm:ss) -->
                             <input matInput name="DateAdded" class="form-field" [(ngModel)]="assetDetails.dateAdded"
                                 [readonly]="true" placeholder="Date Added">
                         </mat-form-field>

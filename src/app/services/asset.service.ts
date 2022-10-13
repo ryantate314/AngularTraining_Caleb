@@ -33,6 +33,7 @@ export class AssetService {
   }
 
   public updateAsset(asset : Asset) : Observable<Asset> { 
+    // TODO: Angular handles serializing to JSON for you. This should post the raw asset object like createAsset() instead of explicitly calling JSON.stringify().
     return this.http.put<Asset>(`${environment.api_url}/assets/` + asset.assetTagId, JSON.stringify(asset));
   }
 

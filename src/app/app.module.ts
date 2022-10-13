@@ -21,6 +21,7 @@ import { LogService } from './shared/log.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
+  // TODO: Each item should be on its own line. This improves readability and change tracking.
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule, MatTableModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatSortModule, MatSelectModule, MatSnackBarModule, MatProgressSpinnerModule, BrowserAnimationsModule],
   declarations: [AppComponent, HelloComponent, AssetList, AssetDetails, NewAssetForm],
   bootstrap: [AppComponent],
